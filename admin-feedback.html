@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin – Customer Feedback | TrendAura</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="summary-body">
+
+<div class="summary-box">
+    <h2>Customer Feedback (Admin Panel)</h2>
+    <p style="text-align:center; opacity:0.8;">All customer reviews submitted on TrendAura</p>
+
+    <div id="feedbackList"></div>
+
+    <button class="home-btn" onclick="clearFeedback()">Clear All Feedback</button>
+    <button class="home-btn" onclick="downloadFeedback()">Download Feedback</button>
+
+    <button class="home-btn" style="background:#ff4d6d;" onclick="logout()">Logout</button>
+</div>
+
+<script>
+    if (localStorage.getItem("adminLoggedIn") !== "true") {
+        window.location.href = "admin-login.html";
+    }
+
+    const feedbacks = JSON.parse(localStorage.getItem("feedbacks")) || [];
+    const list = document.getElementById("feedbackList");
+
+    if (feedbacks.length === 0) {
+        list.innerHTML = "<p>No feedback received yet.</p>";
+    } else {
+        feedbacks.forEach(f => {
+            let stars = "⭐".repeat(f.rating);
+
+            list.innerHTML += `
+                <div class="review-item">
+                    <strong>${f.name}</strong><br>
+                    <small>${f.email}</small><br>
+                    <small>${f.date}</small><br>
+                    <div style="color:#ffb703;font-size:18px">${stars}</div>
+                    <p><b>Product:</b> ${f.product}</p>
+                    <p>${f.message}</p>
+                    <hr>
+                </div>
+            `;
+        });
+    }
+
+    function clearFeedback() {
+        if (confirm("Delete all feedback?")) {
+            localStorage.removeItem("feedbacks");
+            location.reload();
+        }
+    }
+    
+function downloadFeedback() {
+    const feedbacks = JSON.parse(localStorage.getItem("feedbacks")) || [];
+
+    if (feedbacks.length === 0) {
+        alert("No feedback to download");
+        return;
+    }
+
+    let content = "TREND AURA - CUSTOMER FEEDBACK\n";
+    content += "===============================\n\n";
+
+    feedbacks.forEach((f, i) => {
+        content += `Feedback ${i + 1}\n`;
+        content += `Name    : ${f.name}\n`;
+        content += `Email   : ${f.email}\n`;
+        content += `Rating  : ${f.rating || "N/A"} ⭐\n`;
+        content += `Product : ${f.product || "N/A"}\n`;
+        content += `Message : ${f.message}\n`;
+        content += `Date    : ${f.date}\n`;
+        content += "-------------------------------\n\n";
+    });
+
+    const blob = new Blob([content], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "TrendAura_Feedback.txt";
+    a.click();
+
+    URL.revokeObjectURL(url);
+}
+
+
+
+/* LOGOUT */
+function logout() {
+    localStorage.removeItem("adminLoggedIn");
+    window.location.href = "admin-login.html";
+}
+</script>
+
+</body>
+</html>

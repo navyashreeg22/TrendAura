@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login – TrendAura</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="auth-body">
+
+    <div class="auth-box">
+        <h2>Admin Login</h2>
+
+        <input type="text" id="adminUser" placeholder="Username">
+        <input type="password" id="adminPass" placeholder="Password">
+
+        <button onclick="adminLogin()">Login</button>
+    </div>
+
+<script>
+    function adminLogin() {
+        const username = document.getElementById("adminUser").value;
+        const password = document.getElementById("adminPass").value;
+
+        // FIXED ADMIN CREDENTIALS
+        if (username === "admin" && password === "admin123") {
+            localStorage.setItem("adminLoggedIn", "true");
+            window.location.href = "admin-feedback.html";
+        } else {
+            alert("Invalid admin credentials ❌");
+        }
+    }
+</script>
+
+</body>
+</html>

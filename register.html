@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Register - TrendAura</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="auth-body">
+
+    <div class="auth-box">
+        <h2>Create Account</h2>
+
+        <input id="regName" type="text" placeholder="Full Name" required>
+        <input id="regEmail" type="email" placeholder="Email" required>
+        <input id="regPass" type="password" placeholder="Password" required>
+        <input id="regPass2" type="password" placeholder="Confirm Password" required>
+
+        <button onclick="registerUser()">Register</button>
+
+        <p class="switch" onclick="location.href='login.html'">Already have an account? Login</p>
+    </div>
+
+<script>
+function registerUser() {
+    let name = document.getElementById("regName").value.trim();
+    let email = document.getElementById("regEmail").value.trim();
+    let pass = document.getElementById("regPass").value.trim();
+    let pass2 = document.getElementById("regPass2").value.trim();
+
+    if (!name || !email || !pass || !pass2) {
+        alert("All fields are required!");
+        return;
+    }
+
+    if (pass !== pass2) {
+        alert("Passwords do not match!");
+        return;
+    }
+
+    if (pass.length < 6) {
+        alert("Password must be at least 6 characters!");
+        return;
+    }
+
+    const userData = { name, email, password: pass };
+
+    localStorage.setItem("user", JSON.stringify(userData));
+
+    alert("Registration successful! Please login.");
+    window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>

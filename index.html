@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>TrendAura</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <nav class="navbar">
+    <!-- LEFT : BRAND -->
+    <div class="nav-left">
+        <span class="logo">TrendAura</span>
+    </div>
+    <!-- HAMBURGER MENU -->
+<div class="hamburger" onclick="openMenu()">
+    ☰
+    <span class="close-menu" onclick="closeMenu()">✖</span>
+
+</div>
+
+
+
+    <!-- CENTER : MENU -->
+    <div class="nav-center" id="sideMenu">
+         <span class="close-menu" onclick="closeMenu()">✖</span>
+        <a href="#home" class="nav-link" onclick="closeMenu()">Home</a>
+        <a href="#products" class="nav-link" onclick="closeMenu()">Products</a>
+        <a href="#feedback" class="nav-link" onclick="closeMenu()">Feedback</a>
+    </div>
+
+    <!-- RIGHT : ACTIONS -->
+    <div class="nav-right">
+    <span id="welcomeUser" style="font-weight:600;"></span>
+
+    <a class="login-btn" href="login.html" id="loginLink">Login</a>
+
+    <button id="logoutBtn" onclick="logoutUser()" style="display:none;">
+        Logout
+    </button>
+
+    <button id="wishlist-btn">❤️ <span id="wishlist-count">1</span></button>
+    <button id="cart-btn">🛒 <span id="cart-count">0</span></button>
+</div>
+
+</nav>
+
+    <!-- HERO SECTION -->
+<section class="hero" id="home">
+    <div class="hero-overlay"></div>
+    <style>
+    /* INTERNAL CSS  */
+    .internal-highlight {
+        border: 2px dashed #ff4d6d;
+        padding: 10px;
+        border-radius: 10px;
+    }
+</style>
+
+
+ <div class="container">
+    <div class="hero-content">
+        <h1>TrendAura</h1>
+        <p>Premium quality accessories with elegant design and fast delivery</p>
+        <button
+    class="hero-btn"
+    style="background:#ff4d6d;color:white;border:none;padding:10px 20px;border-radius:20px;"
+    onclick="document.getElementById('productGrid').scrollIntoView({ behavior: 'smooth' })">
+    Shop Now
+</button>
+
+    </div>
+    </div>
+</section>
+
+
+    <!-- PRODUCT SECTION -->
+    <section class="products" id="products">
+         <div class="container">
+        <h2>Our Accessories</h2>
+
+        <!-- SEARCH + FILTER BAR -->
+        <div class="top-controls">
+            <input type="text" id="searchBar" placeholder="Search accessories..." onkeyup="updateFilters()" />
+
+            <select id="categoryFilter" onchange="updateFilters()">
+                <option value="all">All</option>
+                <option value="ring">Rings</option>
+                <option value="chain">Chains</option>
+                <option value="bracelet">Bracelets</option>
+                <option value="earring">Earrings</option>
+                <option value="bangle">Bangles</option>
+                <option value="necklace">Necklaces</option>
+            </select>
+
+            <select id="sortFilter" onchange="sortProducts()">
+                <option value="default">Sort by Price</option>
+                <option value="low-high">Low → High</option>
+                <option value="high-low">High → Low</option>
+            </select>
+        </div>
+
+        <!-- PRODUCT GRID -->
+        <div class="product-grid" id="productGrid">
+
+            <!-- RINGS -->
+            <div class="product" data-category="ring" data-price="499"
+                onclick="openQuickView('Diamond Ring','images/ring1.jpg',499,'Elegant diamond ring with premium shine.')">
+                
+                <span class="wishlist-icon" onclick="event.stopPropagation(); toggleWishlist(this,'Diamond Ring',499)">♡</span>
+
+                <img src="images/ring1.jpg" alt="Diamond Ring">
+                <h3>Diamond Ring</h3>
+                <p>₹499</p>
+
+                <button class="card-cart-btn" onclick="event.stopPropagation(); addToCartFromCard('Diamond Ring',499,'images/ring1.jpg')">
+                    Add to Cart
+                </button>
+            </div>
+
+            <div class="product" data-category="ring" data-price="699"
+                onclick="openQuickView('Rose Gold Ring','images/ring2.jpg',699,'Beautiful rose gold ring.')">
+
+                <span class="wishlist-icon" onclick="event.stopPropagation(); toggleWishlist(this,'Rose Gold Ring',699)">♡</span>
+
+                <img src="images/ring2.jpg" alt="Rose Gold Ring">
+                <h3>Rose Gold Ring</h3>
+                <p>₹699</p>
+
+                <button class="card-cart-btn" onclick="event.stopPropagation(); addToCartFromCard('Rose Gold Ring',699,'images/ring2.jpg')">
+                    Add to Cart
+                </button>
+            </div>
+
+            <div class="product" data-category="ring" data-price="899"
+                onclick="openQuickView('Couple Ring Set','images/ring3.jpg',899,'Perfect gift for couples.')">
+
+                <span class="wishlist-icon" onclick="event.stopPropagation(); toggleWishlist(this,'Couple Ring Set',899)">♡</span>
+
+                <img src="images/ring3.jpg" alt="Couple Ring Set">
+                <h3>Couple Ring Set</h3>
+                <p>₹899</p>
+
+                <button class="card-cart-btn" onclick="event.stopPropagation(); addToCartFromCard('Couple Ring Set',899,'images/ring3.jpg')">
+                    Add to Cart
+                </button>
+            </div>
+
+            <!-- CHAINS -->
+            <div class="product" data-category="chain" data-price="799"
+                onclick="openQuickView('Gold Chain','images/chain1.jpg',799,'Gold chain ideal for daily wear.')">
+                
+                <span class="wishlist-icon" onclick="event.stopPropagation(); toggleWishlist(this,'Gold Chain',799)">♡</span>
+
+                <img src="images/chain1.jpg" alt="Gold Chain">
+                <h3>Gold Chain</h3>
+                <p>₹799</p>
+
+                <button class="card-cart-btn" onclick="event.stopPropagation(); addToCartFromCard('Gold Chain',799,'images/chain1.jpg')">
+                    Add to Cart
+                </button>
+            </div>
+
+            <div class="product" data-category="chain" data-price="999"
+                onclick="openQuickView('Silver Chain','images/chain2.jpg',999,'Premium silver chain.')">
+                
+                <span class="wishlist-icon" onclick="event.stopPropagation(); toggleWishlist(this,'Silver Chain',999)">♡</span>
+
+                <img src="images/chain2.jpg" alt="Silver Chain">
+                <h3>Silver Chain</h3>
+                <p>₹999</p>
+
+                <button class="card-cart-btn" onclick="event.stopPropagation(); addToCartFromCard('Silver Chain',999,'images/chain2.jpg')">
+                    Add to Cart
+                </button>
+            </div>
+
+            <div class="product" data-category="chain" data-price="699"
+                onclick="openQuickView('Black Metal Chain','images/chain3.jpg',699,'Trendy black chain.')">
+                
+                <span class="wishlist-icon" onclick="event.stopPropagation(); toggleWishlist(this,'Black Metal Chain',699)">♡</span>
+
+                <img src="images/chain3.jpg" alt="Black Metal Chain">
+                <h3>Black Metal Chain</h3>
+                <p>₹699</p>
+
+                <button class="card-cart-btn" onclick="event.stopPropagation(); addToCartFromCard('Black Metal Chain',699,'images/chain3.jpg')">
+                    Add to Cart
+                </button>
+            </div>
+
+            <!-- BRACELETS -->
+            <div class="product" data-category="bracelet" data-price="299"
+                onclick="openQuickView('Classic Bracelet','images/bracelet1.jpg',299,'Elegant bracelet for daily wear.')">
+
+                <span class="wishlist-icon" onclick="event.stopPropagation(); toggleWishlist(this,'Classic Bracelet',299)">♡</span>
+
+                <img src="images/bracelet1.jpg" alt="Classic Bracelet">
+                <h3>Classic Bracelet</h3>
+                <p>₹299</p>
+
+                <button class="card-cart-btn" onclick="event.stopPropagation(); addToCartFromCard('Classic Bracelet',299,'images/bracelet1.jpg')">
+                    Add to Cart
+                </button>
+            </div>
+
+            <div class="product" data-category="bracelet" data-price="499"
+                onclick="openQuickView('Beaded Bracelet','images/bracelet2.jpg',499,'Natural bead bracelet.')">
+
+                <span class="wishlist-icon" onclick="event.stopPropagation(); toggleWishlist(this,'Beaded Bracelet',499)">♡</span>
+
+                <img src="images/bracelet2.jpg" alt="Beaded Bracelet">
+                <h3>Beaded Bracelet</h3>
+                <p>₹499</p>
+
+                <button class="card-cart-btn" onclick="event.stopPropagation(); addToCartFromCard('Beaded Bracelet',499,'images/bracelet2.jpg')">
+                    Add to Cart
+                </button>
+            </div>
+
+            <div class="product" data-category="bracelet" data-price="399"
+                onclick="openQuickView('Leather Bracelet','images/bracelet3.jpg',399,'Stylish leather bracelet.')">
+
+                <span class="wishlist-icon" onclick="event.stopPropagation(); toggleWishlist(this,'Leather Bracelet',399)">♡</span>
+
+                <img src="images/bracelet3.jpg" alt="Leather Bracelet">
+                <h3>Leather Bracelet</h3>
+                <p>₹399</p>
+
+                <button class="card-cart-btn" onclick="event.stopPropagation(); addToCartFromCard('Leather Bracelet',399,'images/bracelet3.jpg')">
+                    Add to Cart
+                </button>
+            </div>
+
+            <!-- EARRINGS -->
+            <div class="product" data-category="earring" data-price="399"
+                onclick="openQuickView('Diamond Earrings','images/earrings1.jpg',399,'Elegant diamond earrings.')">
+
+                <span class="wishlist-icon" onclick="event.stopPropagation(); toggleWishlist(this,'Diamond Earrings',399)">♡</span>
+
+                <img src="images/earrings1.jpg" alt="Diamond Earrings">
+                <h3>Diamond Earrings</h3>
+                <p>₹399</p>
+
+                <button class="card-cart-btn" onclick="event.stopPropagation(); addToCartFromCard('Diamond Earrings',399,'images/earrings1.jpg')">
+                    Add to Cart
+                </button>
+            </div>
+
+            <div class="product" data-category="earring" data-price="299"
+                onclick="openQuickView('Pearl Earrings','images/earrings2.jpg',299,'Beautiful pearl earrings.')">
+
+                <span class="wishlist-icon" onclick="event.stopPropagation(); toggleWishlist(this,'Pearl Earrings',299)">♡</span>
+
+                <img src="images/earrings2.jpg" alt="Pearl Earrings">
+                <h3>Pearl Earrings</h3>
+                <p>₹299</p>
+
+                <button class="card-cart-btn" onclick="event.stopPropagation(); addToCartFromCard('Pearl Earrings',299,'images/earrings2.jpg')">
+                    Add to Cart
+                </button>
+            </div>
+
+            <div class="product" data-category="earring" data-price="499"
+                onclick="openQuickView('Gold Hoop Earrings','images/earrings3.jpg',499,'Trendy golden hoops.')">
+
+                <span class="wishlist-icon" onclick="event.stopPropagation(); toggleWishlist(this,'Gold Hoop Earrings',499)">♡</span>
+
+                <img src="images/earrings3.jpg" alt="Gold Hoop Earrings">
+                <h3>Gold Hoop Earrings</h3>
+                <p>₹499</p>
+
+                <button class="card-cart-btn" onclick="event.stopPropagation(); addToCartFromCard('Gold Hoop Earrings',499,'images/earrings3.jpg')">
+                    Add to Cart
+                </button>
+            </div>
+
+            <!-- BANGLES -->
+            <div class="product" data-category="bangle" data-price="599"
+                onclick="openQuickView('Gold Bangles','images/bangle1.jpg',599,'Traditional gold bangles.')">
+
+                <span class="wishlist-icon" onclick="event.stopPropagation(); toggleWishlist(this,'Gold Bangles',599)">♡</span>
+
+                <img src="images/bangle1.jpg" alt="Gold Bangles">
+                <h3>Gold Bangles</h3>
+                <p>₹599</p>
+
+                <button class="card-cart-btn" onclick="event.stopPropagation(); addToCartFromCard('Gold Bangles',599,'images/bangle1.jpg')">
+                    Add to Cart
+                </button>
+            </div>
+
+            <div class="product" data-category="bangle" data-price="449"
+                onclick="openQuickView('Silver Bangles','images/bangle2.jpg',449,'Silver bangles set.')">
+
+                <span class="wishlist-icon" onclick="event.stopPropagation(); toggleWishlist(this,'Silver Bangles',449)">♡</span>
+
+                <img src="images/bangle2.jpg" alt="Silver Bangles">
+                <h3>Silver Bangles</h3>
+                <p>₹449</p>
+
+                <button class="card-cart-btn" onclick="event.stopPropagation(); addToCartFromCard('Silver Bangles',449,'images/bangle2.jpg')">
+                    Add to Cart
+                </button>
+            </div>
+
+            <!-- NECKLACES -->
+            <div class="product" data-category="necklace" data-price="899"
+                onclick="openQuickView('Crystal Necklace','images/necklace1.jpg',899,'Beautiful crystal necklace.')">
+
+                <span class="wishlist-icon" onclick="event.stopPropagation(); toggleWishlist(this,'Crystal Necklace',899)">♡</span>
+
+                <img src="images/necklace1.jpg" alt="Crystal Necklace">
+                <h3>Crystal Necklace</h3>
+                <p>₹899</p>
+
+                <button class="card-cart-btn" onclick="event.stopPropagation(); addToCartFromCard('Crystal Necklace',899,'images/necklace1.jpg')">
+                    Add to Cart
+                </button>
+            </div>
+
+            <div class="product" data-category="necklace" data-price="749"
+                onclick="openQuickView('Gold Pendant Necklace','images/necklace2.jpg',749,'Classy pendant necklace.')">
+
+                <span class="wishlist-icon" onclick="event.stopPropagation(); toggleWishlist(this,'Gold Pendant Necklace',749)">♡</span>
+
+                <img src="images/necklace2.jpg" alt="Gold Pendant Necklace">
+                <h3>Gold Pendant Necklace</h3>
+                <p>₹749</p>
+
+                <button class="card-cart-btn" onclick="event.stopPropagation(); addToCartFromCard('Gold Pendant Necklace',749,'images/necklace2.jpg')">
+                    Add to Cart
+                </button>
+            </div>
+
+        </div>
+        </div>
+    </section>
+
+    <!-- QUICK VIEW POPUP -->
+    <div id="quickView" class="quick-view hidden">
+        <div class="quick-content">
+            <span class="close-btn" onclick="closeQuickView()">X</span>
+            <img id="qImg" alt="product image" />
+            <h2 id="qName"></h2>
+            <p id="qDesc"></p>
+            <h3>₹<span id="qPrice"></span></h3>
+
+            <button id="qCartBtn">Add to Cart</button>
+        </div>
+    </div>
+
+    <!-- CART POPUP -->
+    <div id="cart-popup" class="popup hidden">
+        <h2>Your Cart</h2>
+        <div id="cart-items" class="cart-list"></div>
+        <h3>Total: ₹<span id="total">0</span></h3>
+
+        <button class="checkout-btn" onclick="goToCheckout()">Proceed to Checkout</button>
+        <button class="close-btn" onclick="closeCart()">Close</button>
+    </div>
+
+    <!-- WISHLIST POPUP -->
+    <div id="wishlist-popup" class="popup hidden">
+        <h2>Your Wishlist ❤️</h2>
+        <div id="wishlist-items" class="wishlist-list"></div>
+        <button class="close-btn" onclick="closeWishlist()">Close</button>
+    </div>
+<!-- CUSTOMER FEEDBACK SECTION -->
+<section class="feedback-section" id="feedback">
+     <div class="container"></div>
+    <div class="feedback-card">
+        <h2>Customer Feedback</h2>
+        <p class="feedback-sub">We value your thoughts and experience 💬</p>
+
+        <form onsubmit="submitFeedback(); return false;">
+            <div class="fb-row">
+                <div class="fb-group">
+                    <label>Full Name</label>
+                    <input type="text" id="fbName" placeholder="Enter your name" required>
+                </div>
+
+                <div class="fb-group">
+                    <label>Email</label>
+                    <input type="email" id="fbEmail" placeholder="Enter your email" required>
+                </div>
+            </div>
+
+            <div class="fb-row">
+                <div class="fb-group">
+                    <label>Rating</label>
+                    <div class="star-rating">
+                        <span onclick="setRating(1)">★</span>
+                        <span onclick="setRating(2)">★</span>
+                        <span onclick="setRating(3)">★</span>
+                        <span onclick="setRating(4)">★</span>
+                        <span onclick="setRating(5)">★</span>
+                    </div>
+                </div>
+
+                <div class="fb-group">
+                    <label>Product Purchased</label>
+                    <input type="text" id="fbProduct" placeholder="e.g. Diamond Ring">
+                </div>
+            </div>
+
+            <div class="fb-group">
+                <label>Your Feedback</label>
+                <textarea id="fbMessage" rows="4"
+                    placeholder="Share your experience with our accessories..." required></textarea>
+            </div>
+
+            <button type="submit" class="feedback-btn">
+                🚀 Submit Feedback
+            </button>
+        </form>
+        </div>
+    </div>
+</section>
+
+
+
+<script src="script.js"></script>
+<div id="menuOverlay" onclick="closeMenu()"></div>
+
+</body>
+</html>

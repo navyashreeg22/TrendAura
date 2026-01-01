@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Login - TrendAura</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body class="auth-body">
+
+    <div class="auth-box">
+        <h2>Welcome Back</h2>
+
+        <input id="loginEmail" type="email" placeholder="Email" required>
+        <input id="loginPass" type="password" placeholder="Password" required>
+
+        <button onclick="loginUser()">Login</button>
+
+        <p class="switch" onclick="location.href='register.html'">Create new account</p>
+    </div>
+
+<script>
+function loginUser() {
+    let email = document.getElementById("loginEmail").value.trim();
+    let pass = document.getElementById("loginPass").value.trim();
+
+    if (!email || !pass) {
+        alert("Please enter email & password!");
+        return;
+    }
+
+    const savedUser = JSON.parse(localStorage.getItem("user"));
+
+    if (!savedUser) {
+        alert("No account found! Please register.");
+        return;
+    }
+
+    if (email === savedUser.email && pass === savedUser.password) {
+        localStorage.setItem("loggedIn", savedUser.name);
+        alert("Login successful!");
+        window.location.href = "index.html";
+    } else {
+        alert("Invalid email or password!");
+    }
+}
+</script>
+
+</body>
+</html>

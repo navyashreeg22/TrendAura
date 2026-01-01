@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="checkout-body">
+
+    <h2 class="checkout-title">Checkout</h2>
+
+    <div class="checkout-container">
+
+        <!-- LEFT SIDE: USER INFO -->
+        <div class="checkout-form">
+            <h3>Billing Details</h3>
+
+            <input type="text" id="fullName" placeholder="Full Name">
+            <input type="text" id="email" placeholder="Email">
+            <input type="text" id="address" placeholder="Address">
+            <input type="text" id="city" placeholder="City">
+            <input type="text" id="pincode" placeholder="Pincode">
+            <input type="text" id="phone" placeholder="Phone Number">
+
+            <button class="place-btn" onclick="placeOrder()">Place Order</button>
+        </div>
+
+        <!-- RIGHT SIDE: ORDER ITEMS -->
+        <div class="checkout-summary">
+            <h3>Your Items</h3>
+            <div id="checkoutItems"></div>
+
+            <h3>Total: ₹<span id="checkoutTotal">0</span></h3>
+        </div>
+
+    </div>
+
+
+<script>
+let checkoutCart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function loadCheckout() {
+    let list = "";
+    let total = 0;
+
+    checkoutCart.forEach(item => {
+        list += `<p>${item.name} - ₹${item.price}</p>`;
+        total += item.price;
+    });
+
+    document.getElementById("checkoutItems").innerHTML = list;
+    document.getElementById("checkoutTotal").innerText = total;
+}
+loadCheckout();
+
+function placeOrder() {
+    let order = {
+        name: document.getElementById("fullName").value,
+        email: document.getElementById("email").value,
+        address: document.getElementById("address").value,
+        city: document.getElementById("city").value,
+        pincode: document.getElementById("pincode").value,
+        phone: document.getElementById("phone").value,
+        cart: checkoutCart,
+        total: document.getElementById("checkoutTotal").innerText,
+        orderId: "ORD" + Math.floor(Math.random() * 90000)
+    };
+
+    localStorage.setItem("orderSummary", JSON.stringify(order));
+    localStorage.removeItem("cart"); // clear cart after checkout
+
+    window.location.href = "order-summary.html";
+}
+</script>
+
+</body>
+</html>

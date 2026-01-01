@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Summary</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="summary-body">
+
+    <div class="summary-box">
+        <h2>🎉 Order Placed Successfully!</h2>
+        <h3>Your Order Summary</h3>
+
+        <p><b>Order ID:</b> <span id="oId"></span></p>
+        <p><b>Name:</b> <span id="oName"></span></p>
+        <p><b>Email:</b> <span id="oEmail"></span></p>
+        <p><b>Address:</b> <span id="oAddress"></span></p>
+        <p><b>City:</b> <span id="oCity"></span></p>
+        <p><b>Pincode:</b> <span id="oPin"></span></p>
+        <p><b>Phone:</b> <span id="oPhone"></span></p>
+
+        <h3>Items Ordered</h3>
+        <div id="oItems"></div>
+
+        <h2>Total Paid: ₹<span id="oTotal"></span></h2>
+
+        <a href="index.html" class="home-btn">Continue shopping</a>
+    </div>
+
+<script>
+let order = JSON.parse(localStorage.getItem("orderSummary"));
+
+if (!order) {
+    document.body.innerHTML = "<h2>No order found. Please place an order first.</h2>";
+} else {
+    document.getElementById("oId").innerText = order.orderId;
+    document.getElementById("oName").innerText = order.name;
+    document.getElementById("oEmail").innerText = order.email;
+    document.getElementById("oAddress").innerText = order.address;
+    document.getElementById("oCity").innerText = order.city;
+    document.getElementById("oPin").innerText = order.pincode;
+    document.getElementById("oPhone").innerText = order.phone;
+    document.getElementById("oTotal").innerText = order.total;
+
+    let itemsHTML = "";
+    order.cart.forEach(item => {
+        itemsHTML += `<p>• ${item.name} - ₹${item.price}</p>`;
+    });
+    document.getElementById("oItems").innerHTML = itemsHTML;
+}
+</script>
+
+</body>
+</html>
